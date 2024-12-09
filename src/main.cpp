@@ -117,6 +117,7 @@ int umain(const std::vector<std::string>& args, const std::vector<std::string>& 
 			obj.setIs64BitInstruction(set.code.is_64bit_instruction);
 			obj.setListApi(set.code.list_api);
 			obj.setListSymbols(set.code.list_symbols);
+			obj.setExportPath(set.code.export_path);
 
 			obj.process();
 		}

@@ -21,6 +21,7 @@ public:
 	void setIs64BitInstruction(bool flag);
 	void setListApi(bool listApi);
 	void setListSymbols(bool listSymbols);
+	void setExportPath(tc::Optional<tc::io::Path> export_code);
 
 	const nstool::RoMetadataProcess& getRoMetadataProcess() const;
 private:
@@ -32,6 +33,7 @@ private:
 	bool mIs64BitInstruction;
 	bool mListApi;
 	bool mListSymbols;
+	tc::Optional<tc::io::Path> mExportPath;
 
 	pie::hac::NsoHeader mHdr;
 	tc::ByteData mTextBlob, mRoBlob, mDataBlob;

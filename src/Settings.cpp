@@ -649,6 +649,7 @@ void nstool::SettingsInitializer::parse_args(const std::vector<std::string>& arg
 	opts.registerOptionHandler(std::shared_ptr<FlagOptionHandler>(new FlagOptionHandler(code.list_api, { "--listapi" })));
 	opts.registerOptionHandler(std::shared_ptr<FlagOptionHandler>(new FlagOptionHandler(code.list_symbols, { "--listsym" })));
 	opts.registerOptionHandler(std::shared_ptr<InstructionTypeOptionHandler>(new InstructionTypeOptionHandler(code.is_64bit_instruction, { "--insttype" })));
+	opts.registerOptionHandler(std::shared_ptr<SingleParamPathOptionHandler>(new SingleParamPathOptionHandler(code.export_path, { "-x", "--export" })));
 
 	// fs options
 	opts.registerOptionHandler(std::shared_ptr<FlagOptionHandler>(new FlagOptionHandler(fs.show_fs_tree, { "--fstree", "--listfs" })));
@@ -837,6 +838,7 @@ void nstool::SettingsInitializer::usage_text() const
 	fmt::print("      --listapi       Print SDK API List.\n");
 	fmt::print("      --listsym       Print Code Symbols.\n");
 	fmt::print("      --insttype      Specify instruction type [64bit|32bit] (64bit is assumed).\n");
+	fmt::print("      -x, --extract   Export the decrypted binary to a path.\n");
 	fmt::print("\n  INI (Initial Program Bundle)\n");
 	fmt::print("    {:s} [--kipdir <dir>] <file>\n", BIN_NAME);
 	fmt::print("      --kipdir        Extract embedded Initial Programs to directory.\n");

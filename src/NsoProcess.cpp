@@ -53,6 +53,19 @@ void nstool::NsoProcess::setListSymbols(bool listSymbols)
 	mRoMeta.setListSymbols(listSymbols);
 }
 
+void nstool::NsoProcess::setExportPath(tc::Optional<tc::io::Path> export_code)
+{
+	mExportPath = export_code;
+
+	if (mExportPath.isSet())
+	{
+		// reset the file if the file already exists
+
+		std::shared_ptr<tc::io::FileStream> target = std::make_shared<tc::io::FileStream>(tc::io::FileStream(mExportPath.get(), tc::io::FileMode::Create, tc::io::FileAccess::Write));
+		target.get()->flush();
+	}
+}
+
 const nstool::RoMetadataProcess& nstool::NsoProcess::getRoMetadataProcess() const
 {
 	return mRoMeta;
@@ -279,6 +292,12 @@ size_t nstool::NsoProcess::decompressData(const byte_t* src, size_t src_len, byt
 	{
 		memset(dst, 0, dst_capacity);
 		return 0;
+	}
+
+	if (mExportPath.isSet())
+	{
+		std::shared_ptr<tc::io::FileStream> target = std::make_shared<tc::io::FileStream>(tc::io::FileStream(mExportPath.get(), tc::io::FileMode::Append, tc::io::FileAccess::Write));
+		target->write(dst, dst_capacity);
 	}
 
 	return size_t(decomp_size);

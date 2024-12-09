@@ -51,6 +51,7 @@ struct Settings
 		bool list_api;
 		bool list_symbols;
 		bool is_64bit_instruction; // true=64bit, false=32bit
+		tc::Optional<tc::io::Path> export_path;
 	} code;
 
 	// Generic FS options
